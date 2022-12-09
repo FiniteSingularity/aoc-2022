@@ -12,8 +12,14 @@ MOVE_MAP: dict[str, tuple[int, int]] = {
 }
 
 
-def sign(x: int) -> int:
-    return (x > 0) - (x < 0)
+def sign(value: int) -> int:
+    """
+    Returns the sign of an integer:
+    -1 for negative values
+    0 for zero values
+    1 for positive values
+    """
+    return (value > 0) - (value < 0)
 
 
 def read_input(filename: str) -> list[tuple[int, int]]:
