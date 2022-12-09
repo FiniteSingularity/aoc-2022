@@ -12,6 +12,10 @@ MOVE_MAP: dict[str, tuple[int, int]] = {
 }
 
 
+def sign(x: int) -> int:
+    return (x > 0) - (x < 0)
+
+
 def read_input(filename: str) -> list[tuple[int, int]]:
     """
     Read Input File.  Return step-by-step positions of the rope head.
@@ -48,10 +52,8 @@ def get_t_positions(h_positions: list[tuple[int, int]]) -> list[tuple[int, int]]
         # if we are more than 1 space away in any direction, calculate
         # new position of tail.
         if max((abs(delta[0]), abs(delta[1]))) > 1:
-            # returns -1 for negative,  0 for 0, 1 for positive
-            d_x = (delta[0] > 0) - (delta[0] < 0)
-            # returns -1 for negative,  0 for 0, 1 for positive
-            d_y = (delta[1] > 0) - (delta[1] < 0)
+            # get sign -1, 0, 1 for delta_x and delta_y
+            d_x, d_y = sign(delta[0]), sign(delta[1])
             # append element-wise addition of two last position and (d_x, d_y)
             t_positions.append(
                 (last_t_position[0] + d_x, last_t_position[1] + d_y)
