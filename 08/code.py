@@ -51,8 +51,10 @@ def generate_hidden_map(grid: list[list[int]]) -> list[list[int]]:
 
     max_map = [[min(val) for val in zip(l_row, r_row, u_row, d_row)]
                for l_row, r_row, u_row, d_row in zip(left, right, up, down)]
-    hidden = [[0 if row[0][col] <= row[1][col] else 1 for col in range(
-        len(row[0]))] for row in list(zip(grid, max_map))]
+
+    hidden = [[int(grid_val > max_val) for grid_val, max_val in zip(
+        grid_row, max_map_row)] for grid_row, max_map_row in zip(grid, max_map)]
+
     return hidden
 
 
@@ -92,8 +94,8 @@ def gen_scenic_scores(grid: list[list[int]]) -> list[list[int]]:
         ] for row in grid_t
     ])
 
-    scores = [[math.prod(col) for col in zip(left[i], right[i], up[i], down[i])]
-              for i in range(len(left))]
+    scores = [[math.prod(col) for col in zip(l_row, r_row, d_row, u_row)]
+              for l_row, r_row, u_row, d_row in zip(left, right, up, down)]
 
     return scores
 
