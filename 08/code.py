@@ -49,8 +49,8 @@ def generate_hidden_map(grid: list[list[int]]) -> list[list[int]]:
         list(reversed([-1] + list(itertools.accumulate(row[::-1], max))))[1:] for row in grid_t
     ])
 
-    max_map = [[min(val) for val in zip(left[i], right[i], up[i], down[i])]
-               for i in range(len(left))]
+    max_map = [[min(val) for val in zip(l_row, r_row, u_row, d_row)]
+               for l_row, r_row, u_row, d_row in zip(left, right, up, down)]
     hidden = [[0 if row[0][col] <= row[1][col] else 1 for col in range(
         len(row[0]))] for row in list(zip(grid, max_map))]
     return hidden
@@ -102,7 +102,7 @@ def part1() -> None:
     """
     Part 1
     """
-    grid = read_input("test.txt")
+    grid = read_input("input.txt")
     hidden = generate_hidden_map(grid)
     print(sum(map(sum, hidden)))
     return
